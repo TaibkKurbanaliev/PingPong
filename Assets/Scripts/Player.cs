@@ -9,6 +9,6 @@ public class Player : MovableObject
         var input = Input.GetAxis("Vertical");
         var currentPos = new Vector2(transform.position.x, transform.position.y);
         Rb.MovePosition(currentPos + Vector2.up * Speed * input * Time.fixedDeltaTime);
-        Deb
+        
     }
 }
