@@ -3,10 +3,14 @@ using UnityEngine;
 
 public class Enemy : MovableObject
 {
-    [SerializeField] private float _maxYPos = 8;
     [SerializeField] private Ball _ball; 
 
     private Vector2 _targetDirection = Vector2.up;
+
+    public void Init(float speed)
+    {
+        Speed = speed;
+    }
 
     protected override void Move()
     {

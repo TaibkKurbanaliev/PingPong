@@ -8,6 +8,14 @@ public class Ball : MovableObject
     [SerializeField] private Vector2 _yOffset = new Vector2(0f, 0.1f);
 
     private Vector2 _targetDirection;
+    private float _speedMultiplier = 0.05f;
+
+    public void Init(float speed, float speedMultiplier)
+    {
+        Speed = speed;
+        _speedMultiplier = speedMultiplier;
+    }
+
     private void Start()
     {
         _targetDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
@@ -31,7 +39,7 @@ public class Ball : MovableObject
             _targetDirection = Vector2.Reflect(_targetDirection, Vector2.right * Mathf.Sign(Rb.linearVelocityX)) + _xOffset * Mathf.Sign(Rb.linearVelocityX);
         }
 
-        Speed += 0.05f;
+        Speed += _speedMultiplier;
         _targetDirection = _targetDirection.normalized;
     }
 }
