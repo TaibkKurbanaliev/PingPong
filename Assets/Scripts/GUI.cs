@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,11 +11,38 @@ public class GUI : MonoBehaviour
     [SerializeField] private GameObject _difficult;
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private SettingsSO _difficultSettings;
+    [SerializeField] private TextMeshProUGUI _playerScore;
+    [SerializeField] private TextMeshProUGUI _enemyScore;
+    [SerializeField] private Ball _ball;
 
     private void Start()
     {
         _menu.SetActive(false);
         _difficult.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        _ball.Goaled += OnBallGoaled;
+    }
+
+    private void OnDisable()
+    {
+        _ball.Goaled -= OnBallGoaled;
+    }
+
+    private void OnBallGoaled(bool isPlayer)
+    {
+        Debug.Log("Goal");
+        if (!isPlayer)
+            ChangeScore(_enemyScore);
+        else 
+            ChangeScore(_playerScore);
+    }
+
+    private void ChangeScore(TextMeshProUGUI text)
+    {
+        text.text = (int.Parse(text.text)+1).ToString();
     }
 
     public void OnPauseClick()
