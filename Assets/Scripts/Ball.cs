@@ -7,6 +7,8 @@ public class Ball : MovableObject
     [SerializeField] private LayerMask _racket;
     [SerializeField] private LayerMask _playerWall;
     [SerializeField] private LayerMask _enemyWall;
+    [SerializeField] private Player _player;
+    [SerializeField] private Enemy _enemy;
     [SerializeField] private Vector2 _xOffset = new Vector2(0.1f, 0f);
     [SerializeField] private Vector2 _yOffset = new Vector2(0f, 0.1f);
     [SerializeField] private AudioSource _audio;
@@ -55,10 +57,14 @@ public class Ball : MovableObject
         if ((1 << collision.gameObject.layer & _enemyWall) != 0)
         {
             Goaled.Invoke(false);
+
+            _enemy.AddScore();
         }
         else if((1 << collision.gameObject.layer & _playerWall) != 0)
         {
             Goaled.Invoke(true);
+
+            _player.AddScore();
         }
 
         transform.position = Vector2.zero;
